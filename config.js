@@ -1,6 +1,8 @@
 (function (){
   'use strict';
 
+  
+
   var session      = require("express-session"),
       RedisStore   = require('connect-redis')(session)
 
