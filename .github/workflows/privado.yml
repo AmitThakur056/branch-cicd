@@ -7,10 +7,10 @@ jobs:
     if: github.ref_name == github.event.repository.default_branch
     env:
       PRIVADO_API_TOKEN: ${{ secrets.PRIVADO_API_TOKEN }}
-      PRIVADO_API_ID: "597871788F13963F5B6B063F"
-      PRIVADO_API_HOST: "https://t.ent.code.privado.ai"
+      PRIVADO_API_ID: "89B8D9D7B8C948019D856C75"
+      PRIVADO_API_HOST: "https://scmtest.gcp.privado-dev.com"
       PRIVADO_CI_PLATFORM: "GITHUB_ACTIONS"
-      PRIVADO_DOCKER_IMAGE: 638117407428.dkr.ecr.ap-south-1.amazonaws.com/scanner-agent:latest
+      PRIVADO_DOCKER_IMAGE: 638117407428.dkr.ecr.ap-south-1.amazonaws.com/scanner-agent:scm
       PRIVADO_REPOSITORY_ID: ${{ github.repository_id }}
       PRIVADO_REPOSITORY_NAME: ${{ github.repository }}
       PRIVADO_COMMIT_ID: ${{ github.sha }}
@@ -24,7 +24,7 @@ jobs:
         fetch-depth: 0
     - name: "Login to docker registry"
       run: |
-        curl --fail -s -H "Content-Type: application/json" -H "Authorization: Token $PRIVADO_API_TOKEN" -H "idt: $PRIVADO_API_TOKEN" -H "data-url: /ce/integrations/customers/$PRIVADO_API_ID/docker-registry-token" $PRIVADO_API_HOST/ce/integrations/customers/$PRIVADO_API_ID/docker-registry-token?ci=true | docker login --username AWS --password-stdin $PRIVADO_DOCKER_IMAGE
+        curl --fail -s -H "Content-Type: application/json" -H "Authorization: Token apiff2c2df8350984b4eed876fc60b87c0a177c43c15bf7382e8d" -H "idt: apiff2c2df8350984b4eed876fc60b87c0a177c43c15bf7382e8d" -H "data-url: /ce/integrations/customers/B426BB68905009DF0503BB66/docker-registry-token" https://t.ent.code.privado.ai/ce/integrations/customers/B426BB68905009DF0503BB66/docker-registry-token?ci=true | docker login --username AWS --password-stdin $PRIVADO_DOCKER_IMAGE
     - name: Run Privado Scanner
       run: |
         env | grep "PRIVADO_" > $GITHUB_WORKSPACE/.privado.env
